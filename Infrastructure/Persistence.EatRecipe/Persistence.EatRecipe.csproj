@@ -24,13 +24,4 @@
     <ProjectReference Include="..\..\Core\Domain.EatRecipe\Domen.EatRecipe.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repostarys\Category\" />
-    <Folder Include="Repostarys\Comment\" />
-    <Folder Include="Repostarys\MealRecipe\" />
-    <Folder Include="Repostarys\Menu\" />
-    <Folder Include="Repostarys\User\" />
-    <Folder Include="Repostarys\Page\" />
-  </ItemGroup>
-
 </Project>
