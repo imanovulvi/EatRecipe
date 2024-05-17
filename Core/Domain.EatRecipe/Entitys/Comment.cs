@@ -15,6 +15,6 @@ namespace Domen.EatRecipe.Entitys
         public MealRecipe MealRecipe { get; set; }
 
         public Guid UserId { get; set; }
-        public List<User> Users { get; set; }
+        public User User { get; set; }
     }
 }

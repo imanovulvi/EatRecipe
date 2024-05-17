@@ -15,5 +15,7 @@ namespace Domen.EatRecipe.Entitys
         public string Phone { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
+      
+        public List<Comment> Comment { get; set; }
     }
 }

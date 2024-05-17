@@ -1,4 +1,6 @@
+using Appilacation.EatRecipe.Repostarys;
 using Microsoft.AspNetCore.Mvc;
+using Persistence.EatRecipe.Repostarys;
 using System.Diagnostics;
 using WebApp.EatRecipe.Models;
 
@@ -6,27 +8,25 @@ namespace WebApp.EatRecipe.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        readonly IMenuReadRepostary _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMenuReadRepostary context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            _context.GetAll().ToList();
+
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }

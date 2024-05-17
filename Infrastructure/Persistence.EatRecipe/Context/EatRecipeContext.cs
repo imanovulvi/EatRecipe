@@ -1,8 +1,11 @@
 ﻿using Domen.EatRecipe.Entitys;
+using Domen.EatRecipe.Entitys.EntitysBase;
+using Domen.EatRecipe.Entitys.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +20,25 @@ namespace Persistence.EatRecipe.Context
         public DbSet<Page> Pages { get; set; }
         public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public EatRecipeContext(DbContextOptions options):base(options)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=EatRecipeDB;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true;");
+            
+        }
+
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=.;Database=EatRecipeDb_1;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true;");
+        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration<Category>(new CategoryMapping());
+            modelBuilder.ApplyConfiguration<Comment>(new CommentMapping());
+
+            modelBuilder.ApplyConfiguration<MealRecipe>(new MealRecipeMapping());
+            modelBuilder.ApplyConfiguration<Menu>(new MenuMapping());
+            modelBuilder.ApplyConfiguration<Page>(new PageMapping());
+            modelBuilder.ApplyConfiguration<User>(new UserMapping());
         }
     }
 }

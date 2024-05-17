@@ -1,3 +1,5 @@
+using WebApp.EatRecipe.Extentions;
+
 namespace WebApp.EatRecipe
 {
     public class Program
@@ -9,6 +11,7 @@ namespace WebApp.EatRecipe
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAppService(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
