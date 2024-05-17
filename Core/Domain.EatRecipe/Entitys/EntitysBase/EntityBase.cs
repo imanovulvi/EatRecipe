@@ -8,7 +8,7 @@ namespace Domen.EatRecipe.Entitys.EntitysBase
 {
     public abstract class EntityBase
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime CreateDate { get; set; }
         public bool Aktiv { get; set; } = true;
         public bool IsDeleted { get; set; }=false;

@@ -12,8 +12,8 @@ using Persistence.EatRecipe.Context;
 namespace Persistence.EatRecipe.Migrations
 {
     [DbContext(typeof(EatRecipeContext))]
-    [Migration("20240517125807_mig1")]
-    partial class mig1
+    [Migration("20240517153638_mig12")]
+    partial class mig12
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,11 @@ namespace Persistence.EatRecipe.Migrations
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Aktiv")
                         .ValueGeneratedOnAdd()
@@ -59,10 +60,11 @@ namespace Persistence.EatRecipe.Migrations
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Aktiv")
                         .ValueGeneratedOnAdd()
@@ -87,24 +89,31 @@ namespace Persistence.EatRecipe.Migrations
                     b.Property<Guid>("MealRecipeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("MealRecipeId1")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("MealRecipeId");
+                    b.HasIndex("MealRecipeId1");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.MealRecipe", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Aktiv")
                         .ValueGeneratedOnAdd()
@@ -113,6 +122,9 @@ namespace Persistence.EatRecipe.Migrations
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CategoryId1")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
@@ -135,17 +147,18 @@ namespace Persistence.EatRecipe.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId1");
 
                     b.ToTable("MealRecipes");
                 });
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.Menu", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Aktiv")
                         .ValueGeneratedOnAdd()
@@ -157,8 +170,8 @@ namespace Persistence.EatRecipe.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<Guid?>("DownMenu")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("DownMenu")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -185,10 +198,11 @@ namespace Persistence.EatRecipe.Migrations
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.Page", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Aktiv")
                         .ValueGeneratedOnAdd()
@@ -221,10 +235,11 @@ namespace Persistence.EatRecipe.Migrations
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Aktiv")
                         .ValueGeneratedOnAdd()
@@ -279,13 +294,13 @@ namespace Persistence.EatRecipe.Migrations
                 {
                     b.HasOne("Domen.EatRecipe.Entitys.MealRecipe", "MealRecipe")
                         .WithMany("Comments")
-                        .HasForeignKey("MealRecipeId")
+                        .HasForeignKey("MealRecipeId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domen.EatRecipe.Entitys.User", "User")
                         .WithMany("Comment")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -298,7 +313,7 @@ namespace Persistence.EatRecipe.Migrations
                 {
                     b.HasOne("Domen.EatRecipe.Entitys.Category", "Category")
                         .WithMany("MealRecipes")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

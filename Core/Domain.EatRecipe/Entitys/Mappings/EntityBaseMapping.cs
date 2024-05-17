@@ -15,7 +15,7 @@ namespace Domen.EatRecipe.Entitys.Mappings
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).HasDefaultValueSql("newid()");
+            
             builder.Property(x => x.IsDeleted).HasDefaultValue(false).IsRequired(true);
             builder.Property(x=>x.CreateDate).HasDefaultValueSql("getdate()").IsRequired(true);
             builder.Property(x => x.Aktiv).HasDefaultValue(true).IsRequired(true);

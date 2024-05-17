@@ -12,7 +12,7 @@ namespace Domen.EatRecipe.Entitys.Mappings
         public override void Configure(EntityTypeBuilder<Menu> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(15);
-            builder.Property(x => x.Url).HasMaxLength(15);
+            builder.Property(x => x.Url).HasMaxLength(30);
             base.Configure(builder);  
            // builder.Property(x => x.DownMenu).IsRequired(false);
         }
