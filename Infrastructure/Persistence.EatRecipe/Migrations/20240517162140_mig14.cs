@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.EatRecipe.Migrations
 {
     /// <inheritdoc />
-    public partial class mig12 : Migration
+    public partial class mig14 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,9 +34,8 @@ namespace Persistence.EatRecipe.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Row = table.Column<int>(type: "int", nullable: false),
-                    DownMenu = table.Column<int>(type: "int", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     Aktiv = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
@@ -110,6 +109,31 @@ namespace Persistence.EatRecipe.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MenuDownUps",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Row = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Aktiv = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuDownUps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MenuDownUps_Menus_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "Menus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -155,6 +179,11 @@ namespace Persistence.EatRecipe.Migrations
                 name: "IX_MealRecipes_CategoryId1",
                 table: "MealRecipes",
                 column: "CategoryId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuDownUps_MenuId",
+                table: "MenuDownUps",
+                column: "MenuId");
         }
 
         /// <inheritdoc />
@@ -164,7 +193,7 @@ namespace Persistence.EatRecipe.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Menus");
+                name: "MenuDownUps");
 
             migrationBuilder.DropTable(
                 name: "Pages");
@@ -174,6 +203,9 @@ namespace Persistence.EatRecipe.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Menus");
 
             migrationBuilder.DropTable(
                 name: "Categorys");

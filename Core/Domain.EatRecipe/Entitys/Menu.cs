@@ -12,7 +12,7 @@ namespace Domen.EatRecipe.Entitys
         public string Name { get; set; }
         public string Url { get; set; }
         public int Row { get; set; }
-        public int? DownMenu { get; set; }
+        public List<MenuDownUp> MenuDownUps { get; set; }
 
     }
 }

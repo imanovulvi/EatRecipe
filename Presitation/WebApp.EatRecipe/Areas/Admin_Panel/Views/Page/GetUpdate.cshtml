@@ -1,0 +1,46 @@
+﻿@using Domen.EatRecipe.Entitys
+@model Page
+@{
+    ViewData["Title"] = "GetUpdate";
+}
+@section head {
+  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> 
+  
+}
+
+<h1>GetUpdate</h1>
+<form method="post" action="/admin_panel/Page/GetUpdate" >
+    <input type="hidden" asp-for="@Model.Id" />
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input type="text"  class="form-control" asp-for="@Model.Title" id="exampleFormControlInput1" placeholder="Title">
+</div>
+<div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+    <textarea name="Content" class="form-control" asp-for="@Model.Content" rows="3"></textarea>
+       
+        <script>
+            CKEDITOR.replace('Content');
+        </script>
+
+</div>
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">IsDeleted</label>
+    
+<select class="form-select" aria-label="Default select example" asp-for="@Model.IsDeleted">
+    <option value="False" >False</option>
+    <option value="True">True</option>
+
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Aktiv</label>
+    <select class="form-select" aria-label="Default select example" asp-for="@Model.Aktiv">
+
+    <option value="False">False</option>
+    <option value="True">True</option>
+</select>
+</div>
+<br />
+    <input type="submit"  class="btn btn-primary" value="Update" />
+</form>

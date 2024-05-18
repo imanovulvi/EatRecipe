@@ -1,11 +1,12 @@
 ﻿using Appilacation.EatRecipe.Repostarys;
+using Domen.EatRecipe.Entitys;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 using Persistence.EatRecipe.Context;
 using Persistence.EatRecipe.Repostarys;
 
-namespace WebApp.EatRecipe.ViewComponents.Menu
+namespace WebApp.EatRecipe.ViewComponents
 {
     public class MenuList : ViewComponent
     {
@@ -18,8 +19,10 @@ namespace WebApp.EatRecipe.ViewComponents.Menu
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var menu =await  _context.GetAll().ToListAsync();
+            IQueryable<Menu> queryMenu = _context.GetAll(false);
+            List<Menu> menu = queryMenu.Include(x => x.MenuDownUps).OrderBy(x => x.Row).ToList();
             return View(menu);
+          
         }
 
     }

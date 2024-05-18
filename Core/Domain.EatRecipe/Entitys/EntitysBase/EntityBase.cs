@@ -10,7 +10,7 @@ namespace Domen.EatRecipe.Entitys.EntitysBase
     {
         public int Id { get; set; }
         public DateTime CreateDate { get; set; }
-        public bool Aktiv { get; set; } = true;
-        public bool IsDeleted { get; set; }=false;
+        public bool Aktiv { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

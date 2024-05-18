@@ -29,10 +29,10 @@ namespace WebApp.EatRecipe
 
             app.UseAuthorization();
 
+            app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
+                name: "defaultWithArea",
+                pattern: "{area=admin_panel}/{controller=Home}/{action=Index}/{id?}"); 
             app.Run();
         }
     }

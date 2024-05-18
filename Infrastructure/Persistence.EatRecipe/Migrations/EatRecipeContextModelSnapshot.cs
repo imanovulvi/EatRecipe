@@ -167,9 +167,6 @@ namespace Persistence.EatRecipe.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int?>("DownMenu")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -185,12 +182,56 @@ namespace Persistence.EatRecipe.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
+                });
+
+            modelBuilder.Entity("Domen.EatRecipe.Entitys.MenuDownUp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Aktiv")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<DateTime>("CreateDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("MenuDownUps");
                 });
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.Page", b =>
@@ -317,6 +358,17 @@ namespace Persistence.EatRecipe.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Domen.EatRecipe.Entitys.MenuDownUp", b =>
+                {
+                    b.HasOne("Domen.EatRecipe.Entitys.Menu", "Menu")
+                        .WithMany("MenuDownUps")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+                });
+
             modelBuilder.Entity("Domen.EatRecipe.Entitys.Category", b =>
                 {
                     b.Navigation("MealRecipes");
@@ -325,6 +377,11 @@ namespace Persistence.EatRecipe.Migrations
             modelBuilder.Entity("Domen.EatRecipe.Entitys.MealRecipe", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Domen.EatRecipe.Entitys.Menu", b =>
+                {
+                    b.Navigation("MenuDownUps");
                 });
 
             modelBuilder.Entity("Domen.EatRecipe.Entitys.User", b =>

@@ -30,7 +30,11 @@
                                 @item.Name
                             </a>
                             <ul class="dropdown-menu">
-                                <a class="nav-link text-dark" href="@item.Url">@item.Name</a>
+                                @foreach (var item2 in item.MenuDownUps)
+                                {
+                                    <a class="nav-link text-dark" href="@item2.Url">@item2.Name</a>
+                                }
+                              
                             </ul>
                         </li>
                     }

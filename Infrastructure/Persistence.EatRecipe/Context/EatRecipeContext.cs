@@ -17,8 +17,10 @@ namespace Persistence.EatRecipe.Context
         public DbSet<Comment> Comments { get; set; }
         public DbSet<MealRecipe> MealRecipes { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<MenuDownUp> MenuDownUps { get; set; }
         public DbSet<Page> Pages { get; set; }
         public DbSet<User> Users { get; set; }
+        
 
         public EatRecipeContext(DbContextOptions options):base(options)
         {
@@ -37,6 +39,7 @@ namespace Persistence.EatRecipe.Context
 
             modelBuilder.ApplyConfiguration<MealRecipe>(new MealRecipeMapping());
             modelBuilder.ApplyConfiguration<Menu>(new MenuMapping());
+            modelBuilder.ApplyConfiguration<MenuDownUp>(new MenuDownUpMapping());
             modelBuilder.ApplyConfiguration<Page>(new PageMapping());
             modelBuilder.ApplyConfiguration<User>(new UserMapping());
         }

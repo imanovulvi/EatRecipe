@@ -21,4 +21,12 @@
     <ProjectReference Include="..\..\Infrastructure\Persistence.EatRecipe\Persistence.EatRecipe.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin_Panel\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\ckeditor\.circleci\config.yml" />
+  </ItemGroup>
+
 </Project>

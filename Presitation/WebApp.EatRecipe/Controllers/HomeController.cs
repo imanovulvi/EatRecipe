@@ -1,6 +1,7 @@
 using Appilacation.EatRecipe.Repostarys;
 using Domen.EatRecipe.Entitys;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Persistence.EatRecipe.Repostarys;
 using System.Diagnostics;
 using WebApp.EatRecipe.Models;
@@ -18,8 +19,6 @@ namespace WebApp.EatRecipe.Controllers
 
         public IActionResult Index()
         {
-           List<Menu> aaa= _context.GetAll().OrderBy(x =>x.Row).OrderBy(x=>x.DownMenu).ToList();
-
             return View();
         }
 
